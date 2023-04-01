@@ -7,6 +7,8 @@ import { Input } from "@components/Input";
 import { FlatList } from "react-native";
 import { Container, Form, HeaderList, NumbersOfplayers } from "./styles";
 import { PlayerCard } from "@components/PlayerCard";
+import ListEmpty from "@components/LIstEmpty";
+import { Button } from "@components/Button";
 
 export default function Players() {
   const [team, setTeam] = useState("Time A");
@@ -43,8 +45,20 @@ export default function Players() {
       <FlatList
         data={players}
         keyExtractor={(item) => item}
-        renderItem={({ item }) => <PlayerCard name={item} />}
+        renderItem={({ item }) => (
+          <PlayerCard name={item} onRemove={() => {}} />
+        )}
+        ListEmptyComponent={() => (
+          <ListEmpty message="Não há pessoas nesse time." />
+        )}
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={[
+          { paddingBottom: 100 },
+          players.length === 0 && { flex: 1 },
+        ]}
       />
+
+      <Button title="Remover Turma" type="SECONDARY" />
     </Container>
   );
 }
