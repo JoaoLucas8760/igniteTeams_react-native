@@ -10,7 +10,7 @@ import { PlayerCard } from "@components/PlayerCard";
 import ListEmpty from "@components/LIstEmpty";
 import { Button } from "@components/Button";
 
-export default function Players() {
+export function Players() {
   const [team, setTeam] = useState("Time A");
   const [players, setPlayers] = useState(["Joao", "Rafael", "Caua"]);
   return (
