@@ -13,7 +13,9 @@ export function Groups() {
 
   const navigation = useNavigation();
 
-  function handleNewGroup() {}
+  function handleNewGroup() {
+    navigation.navigate("new");
+  }
   return (
     <Container>
       <Header />
