@@ -3,10 +3,10 @@ import { GroupCard } from "@components/GroupCard";
 import { Header } from "@components/Header";
 import { Highlight } from "@components/Highlight";
 import ListEmpty from "@components/LIstEmpty";
-import { useState, useEffect } from "react";
+import { useState, useCallback } from "react";
 import { FlatList } from "react-native";
 import { Container } from "./styles";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useFocusEffect } from "@react-navigation/native";
 import { groupsGetAll } from "@storage/group/groupsGetAll";
 
 export function Groups() {
@@ -27,9 +27,11 @@ export function Groups() {
     }
   }
 
-  useEffect(() => {
-    fetchGroups();
-  }, []);
+  useFocusEffect(
+    useCallback(() => {
+      fetchGroups();
+    }, [])
+  );
   return (
     <Container>
       <Header />
