@@ -5,7 +5,7 @@ import { Filter } from "@components/Filter";
 import { Header } from "@components/Header";
 import { Highlight } from "@components/Highlight";
 import { Input } from "@components/Input";
-import { FlatList } from "react-native";
+import { Alert, FlatList } from "react-native";
 import { Container, Form, HeaderList, NumbersOfplayers } from "./styles";
 import { PlayerCard } from "@components/PlayerCard";
 import ListEmpty from "@components/LIstEmpty";
@@ -16,11 +16,21 @@ type RouteParams = {
 };
 
 export function Players() {
+  const [newPlayerName, setNewPlayerName] = useState("");
   const [team, setTeam] = useState("Time A");
   const [players, setPlayers] = useState([]);
 
   const route = useRoute();
   const { group } = route.params as RouteParams;
+
+  async function handleAddPlayer() {
+    if (newPlayerName.trim().length === 0) {
+      return Alert.alert(
+        "Nova pessoa",
+        "Informe o nome da pessoa para adicionar"
+      );
+    }
+  }
 
   return (
     <Container>
@@ -28,8 +38,12 @@ export function Players() {
       <Highlight title={group} subtitle="Adicione a galera e separe os times" />
 
       <Form>
-        <Input placeholder="Nome da pessoa" autoCorrect={false} />
-        <ButtonIcon icon="add" />
+        <Input
+          onChangeText={setNewPlayerName}
+          placeholder="Nome da pessoa"
+          autoCorrect={false}
+        />
+        <ButtonIcon onPress={handleAddPlayer} icon="add" />
       </Form>
 
       <HeaderList>
