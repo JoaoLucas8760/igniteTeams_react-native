@@ -44,6 +44,7 @@ export function Players() {
 
     try {
       await playerAddByGroup(newPlayer, group);
+      fecthPlayersByTeam();
     } catch (error) {
       if (error instanceof AppError) {
         Alert.alert("Nova pessoa", error.message);
