@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useRoute } from "@react-navigation/native";
 
 import { playerAddByGroup } from "@storage/player/playerAddByGroup";
@@ -16,6 +16,7 @@ import { PlayerCard } from "@components/PlayerCard";
 import ListEmpty from "@components/LIstEmpty";
 import { Button } from "@components/Button";
 import { AppError } from "@utils/AppError";
+import { TextInput } from "react-native";
 
 type RouteParams = {
   group: string;
@@ -28,6 +29,8 @@ export function Players() {
 
   const route = useRoute();
   const { group } = route.params as RouteParams;
+
+  const newPlayerNameInputRef = useRef<TextInput>(null);
 
   async function handleAddPlayer() {
     if (newPlayerName.trim().length === 0) {
@@ -44,6 +47,7 @@ export function Players() {
 
     try {
       await playerAddByGroup(newPlayer, group);
+      newPlayerNameInputRef.current?.blur();
       setNewPlayerName("");
       fecthPlayersByTeam();
     } catch (error) {
@@ -78,6 +82,7 @@ export function Players() {
 
       <Form>
         <Input
+          inputRef={newPlayerNameInputRef}
           onChangeText={setNewPlayerName}
           value={newPlayerName}
           placeholder="Nome da pessoa"
