@@ -10,6 +10,9 @@ import { Container, Form, HeaderList, NumbersOfplayers } from "./styles";
 import { PlayerCard } from "@components/PlayerCard";
 import ListEmpty from "@components/LIstEmpty";
 import { Button } from "@components/Button";
+import { AppError } from "@utils/AppError";
+import { playerAddByGroup } from "@storage/player/playerAddByGroup";
+import { playersGetByGroup } from "@storage/player/playersGetByGroup";
 
 type RouteParams = {
   group: string;
@@ -29,6 +32,24 @@ export function Players() {
         "Nova pessoa",
         "Informe o nome da pessoa para adicionar"
       );
+    }
+
+    const newPlayer = {
+      name: newPlayerName,
+      team,
+    };
+
+    try {
+      await playerAddByGroup(newPlayer, group);
+      const players = await playersGetByGroup(group);
+      console.log(players);
+    } catch (error) {
+      if (error instanceof AppError) {
+        Alert.alert("Nova pessoa", error.message);
+      } else {
+        console.log(error);
+        Alert.alert("Nova pessoa", "Não foi possivel adicionar");
+      }
     }
   }
 
