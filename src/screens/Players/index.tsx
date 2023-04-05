@@ -44,6 +44,7 @@ export function Players() {
 
     try {
       await playerAddByGroup(newPlayer, group);
+      setNewPlayerName("");
       fecthPlayersByTeam();
     } catch (error) {
       if (error instanceof AppError) {
@@ -78,6 +79,7 @@ export function Players() {
       <Form>
         <Input
           onChangeText={setNewPlayerName}
+          value={newPlayerName}
           placeholder="Nome da pessoa"
           autoCorrect={false}
         />
