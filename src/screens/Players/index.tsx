@@ -75,6 +75,8 @@ export function Players() {
     } catch (error) {
       console.log(error);
       Alert.alert("Pessoas", "Não foi possivel carregar as pessoas do time");
+    } finally {
+      setIsLoading(false);
     }
   }
 
