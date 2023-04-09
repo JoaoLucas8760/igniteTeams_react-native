@@ -37,7 +37,7 @@ export function NewGroup() {
         <Icon />
         <Highlight
           title="Nova turma"
-          subtitle="Crie a turma para adicionar as pessoas"
+          subtitle="Crie a turma para adicionar pessoas"
         />
         <Input placeholder="Nome da turma" onChangeText={setGroup} />
         <Button title="Criar" style={{ marginTop: 20 }} onPress={handleNew} />
